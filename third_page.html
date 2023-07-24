@@ -5,7 +5,7 @@
 <svg width=600 height=600>
 </svg>
 <br>
-<button onclick="window.location.href = 'index.html';">1980-1989</button><button type="button" disabled>1980-1999</button> <button onclick="window.location.href = 'third_page.html';">1980-2009</button> <button onclick="window.location.href = 'fourth_page.html';">1980-2019</button>
+<button onclick="window.location.href = 'index.html';">1980-1989</button> <button onclick="window.location.href = 'second_page.html';">1980-1999</button> <button type="button" disabled>1980-2009</button>  <button onclick="window.location.href = 'fourth_page.html';">1980-2019</button>
 <script>
 async function init() {
     xdomain = [1980,2019];
@@ -14,7 +14,7 @@ async function init() {
     yrange = [500, 0];
     xs = d3.scaleLinear().domain(xdomain).range(xrange);
     ys = d3.scaleLinear().domain(ydomain).range(yrange);
-    const data = await d3.csv('https://raw.githubusercontent.com/kish0620/kish0620.github.io/main/data_90s.csv');
+    const data = await d3.csv('https://raw.githubusercontent.com/kish0620/kish0620.github.io/main/data_00s.csv');
     // var data = [{'Year': 1980, 'AvgBudget': 10659169}, {'Year': 1981, 'AvgBudget': 58240789}];
     console.log(data)
     d3.select('svg')
