@@ -6,14 +6,14 @@
 </svg>
 <script>
 async function init() {
-    xdomain = [1980,1981];
+    xdomain = [1980,2019];
     ydomain = [0, 60000000];
     xrange = [0, 500];
     yrange = [500, 0];
     xs = d3.scaleLinear().domain(xdomain).range(xrange);
     ys = d3.scaleLinear().domain(ydomain).range(yrange);
-    // const data = await d3.csv('data.csv');
-    var data = [{'Year': 1980, 'AvgBudget': 10659169}, {'Year': 1981, 'AvgBudget': 58240789}];
+    const data = await d3.csv('data.csv');
+    // var data = [{'Year': 1980, 'AvgBudget': 10659169}, {'Year': 1981, 'AvgBudget': 58240789}];
     console.log(data)
     d3.select('svg')
     .append('g')
@@ -32,7 +32,7 @@ async function init() {
     d3.select('svg')
     .append('g')
         .attr('transform','translate(50,550)')
-        .call(d3.axisBottom(xs).tickValues([1980, 1981]).tickFormat(d3.format("d")))
+        .call(d3.axisBottom(xs).tickValues([1980, 1990, 2000, 2010, 2019]).tickFormat(d3.format("d")))
     }
 </script>
 </body>
