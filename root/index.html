@@ -2,6 +2,7 @@
 <script src='https://d3js.org/d3.v5.min.js'></script>
 <style> circle {fill: lightblue; stroke: black;} </style>
 <body onload='init()'>
+<button type="button" disabled>Other Page</button> <button onclick="window.location.href = 'index2.html';">Other Page</button>
 <svg width=600 height=600>
 </svg>
 <script>
@@ -12,7 +13,7 @@ async function init() {
     yrange = [500, 0];
     xs = d3.scaleLinear().domain(xdomain).range(xrange);
     ys = d3.scaleLinear().domain(ydomain).range(yrange);
-    const data = await d3.csv('data.csv');
+    const data = await d3.csv('https://raw.githubusercontent.com/kish0620/kish0620.github.io/main/root/data.csv');
     // var data = [{'Year': 1980, 'AvgBudget': 10659169}, {'Year': 1981, 'AvgBudget': 58240789}];
     console.log(data)
     d3.select('svg')
