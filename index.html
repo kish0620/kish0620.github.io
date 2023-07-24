@@ -12,7 +12,7 @@ async function init() {
     yrange = [500, 0];
     xs = d3.scaleLinear().domain(xdomain).range(xrange);
     ys = d3.scaleLinear().domain(ydomain).range(yrange);
-    const data = await d3.csv('https://raw.githubusercontent.com/kish0620/kish0620.github.io/main/root/data.csv');
+    const data = await d3.csv('https://raw.githubusercontent.com/kish0620/kish0620.github.io/main/data.csv');
     // var data = [{'Year': 1980, 'AvgBudget': 10659169}, {'Year': 1981, 'AvgBudget': 58240789}];
     console.log(data)
     d3.select('svg')
