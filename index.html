@@ -35,7 +35,19 @@ async function init() {
     .append('g')
         .attr('transform','translate(50,550)')
         .call(d3.axisBottom(xs).tickValues([1980, 1990, 2000, 2010, 2019]).tickFormat(d3.format("d")))
-    }
+    const annotations = [
+    {
+        note: { label: "Hi" },
+        x: 100,
+        y: 100,
+        dy: 137,
+        dx: 162,
+        subject: { radius: 50, radiusPadding: 10 },
+    },
+    ];
+
+    d3.annotation().annotations(annotations);
+}
 </script>
 </body>
 </html>
