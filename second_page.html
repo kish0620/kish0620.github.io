@@ -1,13 +1,41 @@
 <html>
-
-<head>
-  <title>First page</title>
-</head>
-
-<body>
-  <h1>Welcome to HTML!</h1>
-  <p>This is the first page.</p>
-  <button type="button" disabled>First Page</button> <button onclick="window.location.href = 'index.html';">Other Page</button>
+<script src='https://d3js.org/d3.v5.min.js'></script>
+<style> circle {fill: lightblue; stroke: black;} </style>
+<body onload='init()'>
+<svg width=600 height=600>
+</svg>
+<br>
+<button onclick="window.location.href = 'index.html';">1970-1979</button><button type="button" disabled>1970-1989</button>
+<script>
+async function init() {
+    xdomain = [1980,2019];
+    ydomain = [0, 60000000];
+    xrange = [0, 500];
+    yrange = [500, 0];
+    xs = d3.scaleLinear().domain(xdomain).range(xrange);
+    ys = d3.scaleLinear().domain(ydomain).range(yrange);
+    const data = await d3.csv('https://raw.githubusercontent.com/kish0620/kish0620.github.io/main/data_90s.csv');
+    // var data = [{'Year': 1980, 'AvgBudget': 10659169}, {'Year': 1981, 'AvgBudget': 58240789}];
+    console.log(data)
+    d3.select('svg')
+    .append('g')
+        .attr('transform','translate(50,50)')
+    .selectAll("circle")
+    .data(data)
+    .enter()
+    .append("circle")
+        .attr('cx', function(d, i) {return xs(d.Year);})
+        .attr('cy', function(d, i) {return ys(d.AvgBudget);})
+        .attr('r', function(d, i) {return (10);})
+    d3.select('svg')
+    .append('g')
+        .attr('transform','translate(50,50)')
+        .call(d3.axisLeft(ys).tickValues([10000000, 20000000, 30000000, 40000000, 5000000, 60000000]).tickFormat(d3.format("~s")))
+    d3.select('svg')
+    .append('g')
+        .attr('transform','translate(50,550)')
+        .call(d3.axisBottom(xs).tickValues([1980, 1990, 2000, 2010, 2019]).tickFormat(d3.format("d")))
+    }
+</script>
 </body>
-
 </html>
