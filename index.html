@@ -1,5 +1,6 @@
 <html>
 <script src='https://d3js.org/d3.v5.min.js'></script>
+<script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
 <style> circle {fill: lightblue; stroke: black;} </style>
 <body onload='init()'>
 <svg width=600 height=600>
@@ -37,16 +38,25 @@ async function init() {
         .call(d3.axisBottom(xs).tickValues([1980, 1990, 2000, 2010, 2019]).tickFormat(d3.format("d")))
     const annotations = [
     {
-        note: { label: "Hi" },
-        x: 100,
-        y: 100,
-        dy: 137,
-        dx: 162,
-        subject: { radius: 50, radiusPadding: 10 },
-    },
+        note: {
+            label: "Going into the 1980s, the most expensive film was Superman (1978) with a production budget of $55 million. The average budget stayed about the same throughout the decade. The budget record was broken near the end of the decade by either Rambo III or Who Framed Roger Rabbit. Both had a production budget around $60 million",
+            wrap: 180,
+            title: "The 1980s"
+        },
+        x: 125,
+        y: 430,
+        dy: -25,
+        dx: 20
+        },
     ];
+    const makeAnnotations = d3.annotation()
+          .type(d3.annotationLabel)
+          .annotations(annotations)
 
-    d3.annotation().annotations(annotations);
+    d3.select("svg")
+    .append("g")
+        .attr("class", "annotation-group")
+        .call(makeAnnotations)
 }
 </script>
 </body>
