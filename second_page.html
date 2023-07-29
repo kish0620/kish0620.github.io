@@ -27,6 +27,9 @@ async function init() {
         .attr('cx', function(d, i) {return xs(d.Year);})
         .attr('cy', function(d, i) {return ys(d.AvgBudget);})
         .attr('r', function(d, i) {return (10);})
+    .on("mouseover", function(d){tooltip.text("The Average Budget was "+d.AvgBudget); return tooltip.style("visibility", "visible");})
+    .on("mousemove", function(){return tooltip.style("top", (d3.event.pageY+20)+"px").style("left",(d3.event.pageX+10)+"px");})
+    .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
     d3.select('svg')
     .append('g')
         .attr('transform','translate(50,50)')
@@ -35,6 +38,27 @@ async function init() {
     .append('g')
         .attr('transform','translate(50,550)')
         .call(d3.axisBottom(xs).tickValues([1980, 1990, 2000, 2010, 2019]).tickFormat(d3.format("d")))
+    const annotations = [
+    {
+        note: {
+            label: "The 1990s saw a rapid rise in average budget due to the increased use of CGI. In 1994, James Cameron's True Lies became the first film with a $100 million budget. In 1997, his next film Titanic had a $200 million budget.",
+            wrap: 180,
+            title: "The 1990s"
+        },
+        x: 125,
+        y: 430,
+        dy: -25,
+        dx: 20
+        },
+    ];
+    const makeAnnotations = d3.annotation()
+          .type(d3.annotationLabel)
+          .annotations(annotations)
+
+    d3.select("svg")
+    .append("g")
+        .attr("class", "annotation-group")
+        .call(makeAnnotations)
 
 }
 </script>
