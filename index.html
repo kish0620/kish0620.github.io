@@ -3,6 +3,7 @@
 <script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
 <style> circle {fill: lightblue; stroke: black;} </style>
 <body onload='init()'>
+<p>Please run your mouse over any data point for additional information</p>
 <svg width=600 height=600>
 </svg>
 <br>
@@ -16,18 +17,25 @@ async function init() {
     xs = d3.scaleLinear().domain(xdomain).range(xrange);
     ys = d3.scaleLinear().domain(ydomain).range(yrange);
     const data = await d3.csv('https://raw.githubusercontent.com/kish0620/kish0620.github.io/main/data_80s.csv');
-    // var data = [{'Year': 1980, 'AvgBudget': 10659169}, {'Year': 1981, 'AvgBudget': 58240789}];
-    console.log(data)
+    var tooltip = d3.select("body")
+        .append("div")
+        .style("position", "absolute")
+        .style("z-index", "10")
+        .style("visibility", "hidden")
+        .text("a simple tooltip");
     d3.select('svg')
     .append('g')
         .attr('transform','translate(50,50)')
     .selectAll("circle")
     .data(data)
     .enter()
-    .append("circle")
-        .attr('cx', function(d, i) {return xs(d.Year);})
-        .attr('cy', function(d, i) {return ys(d.AvgBudget);})
-        .attr('r', function(d, i) {return (10);})
+        .append("circle")
+            .attr('cx', function(d, i) {return xs(d.Year);})
+            .attr('cy', function(d, i) {return ys(d.AvgBudget);})
+            .attr('r', function(d, i) {return (10);})
+        .on("mouseover", function(d){tooltip.text("The Average Budget for this year is "+d.AvgBudget); return tooltip.style("visibility", "visible");})
+        .on("mousemove", function(){return tooltip.style("top", (d3.event.pageY+20)+"px").style("left",(d3.event.pageX+10)+"px");})
+        .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
     d3.select('svg')
     .append('g')
         .attr('transform','translate(50,50)')
@@ -39,7 +47,7 @@ async function init() {
     const annotations = [
     {
         note: {
-            label: "Going into the 1980s, the most expensive film was Superman (1978) with a production budget of $55 million. The average budget stayed about the same throughout the decade. The budget record was broken near the end of the decade by either Rambo III or Who Framed Roger Rabbit. Both had a production budget around $60 million",
+            label: "Going into the 1980s, the most expensive film was Superman with a production budget of $55 million. The average budget stayed about the same throughout the decade. The budget record was broken near the end of the decade by either Rambo III or Who Framed Roger Rabbit. Both had a production budget around $60 million",
             wrap: 180,
             title: "The 1980s"
         },
