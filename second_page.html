@@ -23,8 +23,6 @@ async function init() {
         .style("z-index", "10")
         .style("visibility", "hidden")
         .text("a simple tooltip");
-    // var data = [{'Year': 1980, 'AvgBudget': 10659169}, {'Year': 1981, 'AvgBudget': 58240789}];
-    console.log(data)
     d3.select('svg')
     .append('g')
         .attr('transform','translate(50,50)')
@@ -35,7 +33,7 @@ async function init() {
         .attr('cx', function(d, i) {return xs(d.Year);})
         .attr('cy', function(d, i) {return ys(d.AvgBudget);})
         .attr('r', function(d, i) {return (10);})
-    .on("mouseover", function(d){tooltip.text("The Average Budget was "+d.AvgBudget); return tooltip.style("visibility", "visible");})
+    .on("mouseover", function(d){tooltip.text("The Average Budget for "+d.Year+" was "+d.AvgBudget+" and average gross was "+d.AvgGross); return tooltip.style("visibility", "visible");})
     .on("mousemove", function(){return tooltip.style("top", (d3.event.pageY+20)+"px").style("left",(d3.event.pageX+10)+"px");})
     .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
     d3.select('svg')
