@@ -1,5 +1,6 @@
 <html>
 <script src='https://d3js.org/d3.v5.min.js'></script>
+<script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
 <style> circle {fill: lightblue; stroke: black;} </style>
 <body onload='init()'>
 <svg width=600 height=600>
@@ -15,6 +16,12 @@ async function init() {
     xs = d3.scaleLinear().domain(xdomain).range(xrange);
     ys = d3.scaleLinear().domain(ydomain).range(yrange);
     const data = await d3.csv('https://raw.githubusercontent.com/kish0620/kish0620.github.io/main/data_90s.csv');
+    var tooltip = d3.select("body")
+        .append("div")
+        .style("position", "absolute")
+        .style("z-index", "10")
+        .style("visibility", "hidden")
+        .text("a simple tooltip");
     // var data = [{'Year': 1980, 'AvgBudget': 10659169}, {'Year': 1981, 'AvgBudget': 58240789}];
     console.log(data)
     d3.select('svg')
